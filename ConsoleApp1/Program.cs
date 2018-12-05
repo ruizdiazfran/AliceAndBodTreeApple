@@ -6,35 +6,6 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public static class Ex
-    {
-        public static IEnumerable<IEnumerable<T>> DifferentCombinations<T>(this IEnumerable<T> elements, int k)
-        {
-            return k == 0 ? new[] { new T[0] } :
-              elements.SelectMany((e, i) =>
-                elements.Skip(i + 1).DifferentCombinations(k - 1).Select(c => (new[] { e }).Concat(c)));
-        }
-    }
-
-    public static class MathExtensions
-    {
-        public static IEnumerable<IEnumerable<T>> Combinations1<T>(this IEnumerable<T> source, int n)
-        {
-            if (n == 0)
-                yield return Enumerable.Empty<T>();
-
-            int count = 1;
-            foreach (T item in source)
-            {
-                foreach (var innerSequence in source.Skip(count).Combinations1(n - 1))
-                {
-                    yield return new T[] { item }.Concat(innerSequence);
-                }
-                count++;
-            }
-        }
-    }
-
     class Program
     {
 
@@ -100,7 +71,7 @@ namespace ConsoleApp1
 
                 var ok = IsPalindrome(phraseWithoutWhite);
 
-                if (ok && 
+                if (ok &&
                     !string.IsNullOrEmpty(phraseJoin) &&
                     !result.Any(x => x.Contains(phraseJoin)))
                 {
@@ -108,7 +79,7 @@ namespace ConsoleApp1
                 }
             }
 
-            if (result.Count == 0) return  "NO" ;
+            if (result.Count == 0) return "NO";
             return string.Join(", ", result.Distinct().ToList()); ;
         }
 
@@ -138,6 +109,8 @@ namespace ConsoleApp1
 
             return returnResult;
         }
+
+
         public static void _GetAllCombinationsOfAllSizes(List<string> ints, List<string> growingList, ref List<List<string>> returnResult)
         {
             var distinctInts = ints.Distinct().ToList();
@@ -159,7 +132,6 @@ namespace ConsoleApp1
             }
 
         }
-
 
 
         private static string CalculatePalimdrome(string phraseEmpty)
@@ -205,7 +177,7 @@ namespace ConsoleApp1
         {
             char[] charArray = s.ToCharArray();
             Array.Reverse(charArray);
-            return s.CompareTo(new string(charArray))==0;
+            return s.CompareTo(new string(charArray)) == 0;
         }
     }
 }
